@@ -15,8 +15,8 @@ E, conforme sua posição dentro da classe, um algarismo corresponde a uma deter
 Por exemplo, considere o número 1.234.567:
 <pre>
 Classes:     milhão  milhar  sem nome
-Algarismos:    1     2 3 4    5 6 7
-Casas:         U     C D U    C D U
+Algarismos:      1   2 3 4    5 6 7
+Casas:           U   C D U    C D U
 
 (sendo U = unidade, D = dezena, C = centena)
 </pre>
