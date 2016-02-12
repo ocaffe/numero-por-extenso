@@ -8,7 +8,7 @@ Mas este aqui tem um diferencial importante: **ele funciona!**
 
 Para efeito deste projeto, entendemos que os números são organizados em **classes**:
 
-Cada classe compreende 3 algarismos (1ª classe = sem nome, 2ª classe = milhar, 3ª classe = milhão, 4ª classe = bilhão, etc).
+Cada classe compreende 3 algarismos (1ª classe = sem nome, 2ª classe = milhar, 3ª classe = milhão, etc).
 
 E, conforme sua posição dentro da classe, um algarismo corresponde a uma determinada **casa**: unidade, dezena, centena.
 
@@ -65,4 +65,4 @@ Casas:           U   C D U    C D U
 <pre>1.100 = mil e cem
 1.100.000 = um milhão e cem mil</pre>
 
-Todas estas regras e também exceções estão cobertas por testes unitários.
+Todas estas regras e também as exceções estão cobertas por testes unitários.
