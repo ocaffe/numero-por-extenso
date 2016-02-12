@@ -4,15 +4,22 @@ Eis mais um código para escrever números por extenso.
 
 Mas este aqui tem um diferencial importante: **ele funciona!**
 
-##Background
+##Ubiquitous language
 
-Os números são organizados em **ordens** e **classes**:
+Para efeito deste projeto, entendemos que os números são organizados em **classes**:
 
 Cada classe compreende 3 algarismos (1ª classe = sem nome, 2ª classe = milhar, 3ª classe = milhão).
 
-E cada algarismo é de uma determinada ordem (a ordem é crescente, ex: a unidade da primeira classe é 1ª ordem, e a unidade da segunda classe é 4ª ordem).
+E, conforme, sua posição dentro da classe, um algarismo corresponde a uma determinada **casa**: unidade, dezena, centena.
 
-Conforme sua posição dentro da classe, um algarismo é de uma determinada **casa**: unidade, dezena, centena.
+Por exemplo, considere o número 1.234.567:
+<pre>
+Classes:     milhão  milhar  sem nome
+Algarismos:    1     2 3 4    5 6 7
+Casas:         U     C D U    C D U
+
+(sendo U = unidade, D = dezena, C = centena)
+</pre>
 
 ##Regras de representação por extenso
 
