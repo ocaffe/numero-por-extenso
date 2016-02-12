@@ -8,9 +8,9 @@ Mas este aqui tem um diferencial importante: **ele funciona!**
 
 Para efeito deste projeto, entendemos que os números são organizados em **classes**:
 
-Cada classe compreende 3 algarismos (1ª classe = sem nome, 2ª classe = milhar, 3ª classe = milhão).
+Cada classe compreende 3 algarismos (1ª classe = sem nome, 2ª classe = milhar, 3ª classe = milhão, 4ª classe = bilhão, etc).
 
-E, conforme, sua posição dentro da classe, um algarismo corresponde a uma determinada **casa**: unidade, dezena, centena.
+E, conforme sua posição dentro da classe, um algarismo corresponde a uma determinada **casa**: unidade, dezena, centena.
 
 Por exemplo, considere o número 1.234.567:
 <pre>
