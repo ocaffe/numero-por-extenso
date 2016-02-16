@@ -69,7 +69,7 @@ Casas:           U   C D U    C D U
 
 Um número pode ser qualificado, e o qualificador pode flexionar em número:
 <pre>1 dia = um dia
-2 dias = dois dias<pre>
+2 dias = dois dias</pre>
 
 ###Casas decimais
 
