@@ -1,5 +1,6 @@
 package org.extenso;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,36 @@ import java.util.function.Function;
 
 public class NumeroPorExtenso {
 
+
+    public static String get(BigDecimal numero, String qualificadorSingular, String qualificadorPlural, 
+        String qualificadorDecimalSingular, String qualificadorDecimalPlural) {
+
+        String extenso = "";
+        String conector = "";
+        
+        long parteInteira = numero.longValue();
+        
+        if (parteInteira > 0) {
+            extenso = get(parteInteira, qualificadorSingular, qualificadorPlural);
+            conector = " e ";
+        }
+        
+        long parteDecimal = numero.remainder(BigDecimal.ONE).movePointRight(numero.scale()).longValue();
+        
+        if (parteDecimal > 0) {
+            extenso += conector + get(parteDecimal, qualificadorDecimalSingular, qualificadorDecimalPlural);
+        }
+        
+        return extenso;
+    }
+    
+    public static String get(long numero, String qualificadorSingular, String qualificadorPlural) {
+        
+        String qualificador = numero == 1 ? qualificadorSingular : qualificadorPlural;
+        
+        return get(numero) + " " + qualificador;
+    }
+    
     public static String get(long numero) {
 
         int[] rawAlgarismos = getAlgarismos(numero);
@@ -81,66 +112,6 @@ class AlgarismoFactory<T> {
         algarismo.setClasse(classe);
         
         return algarismo;
-    }
-}
-
-class Classe {
-
-    private final String[] classeSingular = {"", " mil", " milhão", " bilhão", " trilhão", " quatrilhão"};
-    private final String[] classePlural = {"", " mil", " milhões", " bilhões", " trilhões", " quatrilhões"};
-
-    private int numeroClasse;
-
-    List<Algarismo> algarismos = new ArrayList<>();
-
-    Classe(int numeroClasse) {
-        this.numeroClasse = numeroClasse;
-    }
-
-    String conector() {
-        
-        if (totalClasse() == 0 || souUltimaClasseAEsquerda() || valorCentena() == 0) {
-            return "";
-        }
-        
-        if (totalClasse() % 100 == 0) {
-            return " e ";
-        }
-        
-        return ", ";
-    }
-
-    String representacao() {
-        
-        if (totalClasse() == 0) {
-            return "";
-        }
-        
-        if (totalClasse() == 1) {
-            return classeSingular[numeroClasse];
-        }
-        return classePlural[numeroClasse];
-    }
-
-    boolean isSegundaClasse() {
-        return numeroClasse == 1;
-    }
-    
-    private int totalClasse() {
-        String total = "";
-        
-        for (Algarismo algarismo : algarismos) {
-            total = algarismo.valor + total;
-        }
-        return new Integer(total);
-    }
-
-    private boolean souUltimaClasseAEsquerda() {
-        return algarismos.get(algarismos.size() - 1).algarismoAEsquerda == null;
-    }
-
-    private int valorCentena() {
-        return algarismos.get(algarismos.size() - 1).valor;
     }
 }
 
@@ -251,5 +222,65 @@ abstract class Algarismo {
         if (algarismoADireita != null) {
             algarismoADireita.algarismoAEsquerda = this;
         }
+    }
+}
+
+class Classe {
+
+    private final String[] classeSingular = {"", " mil", " milhão", " bilhão", " trilhão", " quatrilhão"};
+    private final String[] classePlural = {"", " mil", " milhões", " bilhões", " trilhões", " quatrilhões"};
+
+    private int numeroClasse;
+
+    List<Algarismo> algarismos = new ArrayList<>();
+
+    Classe(int numeroClasse) {
+        this.numeroClasse = numeroClasse;
+    }
+
+    String conector() {
+        
+        if (totalClasse() == 0 || souUltimaClasseAEsquerda() || valorCentena() == 0) {
+            return "";
+        }
+        
+        if (totalClasse() % 100 == 0) {
+            return " e ";
+        }
+        
+        return ", ";
+    }
+
+    String representacao() {
+        
+        if (totalClasse() == 0) {
+            return "";
+        }
+        
+        if (totalClasse() == 1) {
+            return classeSingular[numeroClasse];
+        }
+        return classePlural[numeroClasse];
+    }
+
+    boolean isSegundaClasse() {
+        return numeroClasse == 1;
+    }
+    
+    private int totalClasse() {
+        String total = "";
+        
+        for (Algarismo algarismo : algarismos) {
+            total = algarismo.valor + total;
+        }
+        return new Integer(total);
+    }
+
+    private boolean souUltimaClasseAEsquerda() {
+        return algarismos.get(algarismos.size() - 1).algarismoAEsquerda == null;
+    }
+
+    private int valorCentena() {
+        return algarismos.get(algarismos.size() - 1).valor;
     }
 }
