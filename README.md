@@ -65,4 +65,19 @@ Casas:           U   C D U    C D U
 <pre>1.100 = mil e cem
 1.100.000 = um milhão e cem mil</pre>
 
+###Qualificadores
+
+Um número pode ser qualificado, e o qualificador pode flexionar em número:
+<pre>1 dia = um dia
+2 dias = dois dias<pre>
+
+###Casas decimais
+
+Um número qualificado pode conter casas decimais, cuja qualificação também pode flexionar em número:
+<pre>1,01 = um real e um centavo
+2,20 = dois reais e vinte centavos</pre>
+
+E a quantidade de casas decimais pode variar:
+<pre>1,123 = um quilo, cento e vinte e três gramas</pre>
+
 Todas estas regras e também as exceções estão cobertas por testes unitários.
