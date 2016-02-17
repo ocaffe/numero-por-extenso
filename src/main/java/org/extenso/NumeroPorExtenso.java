@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 
 public class NumeroPorExtenso {
-
 
     public static String get(BigDecimal numero, String qualificadorSingular, String qualificadorPlural, 
         String qualificadorDecimalSingular, String qualificadorDecimalPlural) {
@@ -96,22 +94,24 @@ public class NumeroPorExtenso {
 
 class AlgarismoFactory<T> {
 
-    final private static Map<Integer, Function<Integer, Algarismo>> casas = new HashMap<>();
+    final private static Map<Integer, Class<?>> casas = new HashMap<>();
 
     static {
-        casas.put(0, (Integer valor) -> new Unidade(valor));
-        casas.put(1, (Integer valor) -> new Dezena(valor));
-        casas.put(2, (Integer valor) -> new Centena(valor));
+        casas.put(0, Unidade.class);
+        casas.put(1, Dezena.class);
+        casas.put(2, Centena.class);
     }
 
     static Algarismo create(int casa, int valor, Algarismo algarismoADireita, Classe classe) {
         
-        Algarismo algarismo = casas.get(casa).apply(valor);
-        
-        algarismo.encadeiaAlgarismo(algarismoADireita);
-        algarismo.setClasse(classe);
-        
-        return algarismo;
+        try {
+            return (Algarismo) casas.get(casa)
+                .getConstructor(int.class, Algarismo.class, Classe.class)
+                .newInstance(valor, algarismoADireita, classe);
+
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 
@@ -119,8 +119,8 @@ class Unidade extends Algarismo {
 
     private final static String[] unidade = {"", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"};
 
-    Unidade(int valor) {
-        super(valor);
+    public Unidade(int valor, Algarismo algarismoADireita, Classe classe) {
+        super(valor, algarismoADireita, classe);
     }
 
     String conector() {
@@ -131,16 +131,12 @@ class Unidade extends Algarismo {
     }
 
     String representacao() {
-        if ((segundaClasse() && valor == 1) 
+        if ((classe.isSegundaClasse() && valor == 1) 
             || (algarismoAEsquerda != null && algarismoAEsquerda.valor == 1)) {
             
             return "";
         }
         return unidade[valor];
-    }
-
-    private boolean segundaClasse() {
-        return classe.isSegundaClasse();
     }
 }
 
@@ -152,8 +148,8 @@ class Dezena extends Algarismo {
     private final static String[] 
         onzeADezenove = {"", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"};
 
-    Dezena(int valor) {
-        super(valor);
+    public Dezena(int valor, Algarismo algarismoADireita, Classe classe) {
+        super(valor, algarismoADireita, classe);
     }
 
     String conector() {
@@ -179,8 +175,8 @@ class Centena extends Algarismo {
     
     private final static String cento = "cento";
     
-    Centena(int valor) {
-        super(valor);
+    public Centena(int valor, Algarismo algarismoADireita, Classe classe) {
+        super(valor, algarismoADireita, classe);
     }
 
     String conector() {
@@ -204,25 +200,20 @@ abstract class Algarismo {
     protected int valor;
     protected Classe classe;
 
-    Algarismo(int valor) {
+    Algarismo(int valor, Algarismo algarismoADireita, Classe classe) {
+
         this.valor = valor;
-    }
-
-    abstract String representacao();
-
-    abstract String conector();
-
-    void setClasse(Classe classe) {
         this.classe = classe;
-    }
-
-    void encadeiaAlgarismo(Algarismo algarismoADireita) {
         this.algarismoADireita = algarismoADireita;
 
         if (algarismoADireita != null) {
             algarismoADireita.algarismoAEsquerda = this;
         }
     }
+
+    abstract String representacao();
+
+    abstract String conector();
 }
 
 class Classe {
@@ -273,7 +264,7 @@ class Classe {
         for (Algarismo algarismo : algarismos) {
             total = algarismo.valor + total;
         }
-        return new Integer(total);
+        return Integer.parseInt(total);
     }
 
     private boolean souUltimaClasseAEsquerda() {
