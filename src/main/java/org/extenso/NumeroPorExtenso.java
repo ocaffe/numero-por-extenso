@@ -92,7 +92,7 @@ public class NumeroPorExtenso {
     }
 }
 
-class AlgarismoFactory<T> {
+class AlgarismoFactory {
 
     final private static Map<Integer, Class<?>> casas = new HashMap<>();
 
@@ -170,8 +170,8 @@ class Dezena extends Algarismo {
 
 class Centena extends Algarismo {
 
-    private final static String[] 
-        centena = {"", "cem", "duzentos", "trezentos", "quatrocentos", "quinhentos", "seissentos", "setecentos", "oitocentos", "novecentos"};
+    private final static String[] centena = {"", "cem", "duzentos", "trezentos", "quatrocentos", 
+        "quinhentos", "seissentos", "setecentos", "oitocentos", "novecentos"};
     
     private final static String cento = "cento";
     
