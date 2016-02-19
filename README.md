@@ -6,11 +6,9 @@ Mas este aqui tem um diferencial importante: **ele funciona!**
 
 ##Organização dos números
 
-Para efeito deste projeto, entendemos que os números são organizados em **classes**:
+Um número é organizado em **classes**: (1ª classe = sem nome, 2ª classe = milhar, 3ª classe = milhão, etc).
 
-Cada classe compreende 3 algarismos (1ª classe = sem nome, 2ª classe = milhar, 3ª classe = milhão, etc).
-
-E, conforme sua posição dentro da classe, um algarismo corresponde a uma determinada **casa**: unidade, dezena, centena.
+Cada classe compreende até 3 **algarismos** e, conforme sua posição dentro da classe, um algarismo corresponde a uma determinada **casa**: unidade, dezena, centena.
 
 Por exemplo, considere o número 1.234.567:
 <pre>
