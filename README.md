@@ -42,7 +42,7 @@ Casas:           U   C D U    C D U
 
 * Números de 11 a 19 são representados por uma única palavra, não usam o conector "**e**":
 <pre>11 = onze, 12 doze, 19 = dezenove</pre>
-* O algarismo 1, quando na casa da centena, é representado por "**cem**" quando não há dezena nem unidade; senão é representado por "**cento**":
+* O algarismo 1, quando na casa da centena, é representado por "**cem**" quando não há valor na dezena nem na unidade; senão é representado por "**cento**":
 <pre>100 = cem
 101 = cento e um
 110 = cento e dez</pre>
