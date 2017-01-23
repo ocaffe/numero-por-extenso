@@ -79,7 +79,7 @@ Um número qualificado pode conter casas decimais, cuja qualificação também p
 A quantidade de casas decimais pode variar:
 <pre>1,123 = um quilo, cento e vinte e três gramas</pre>
 
-#O projeto:
+#O projeto
 
 Não há dependência a nenhuma biblioteca externa ao Java e toda a lógica está implementada em um único arquivo, **NumeroPorExtenso.java**. Você pode simplesmente adicionar este arquivo em qualquer projeto seu e produzir um número por extenso  invocando o método `get(número)`, assim:
 
