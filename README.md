@@ -90,7 +90,7 @@ Ou passando um decimal e seus qualificadores de parte inteira e decimal, tanto n
     // imprime "cento e vinte e três reais e quarenta e cinco centavos".
     System.out.println(NumeroPorExtenso.get(new BigDecimal("123.45"), "real", "reais", "centavo", "centavos"));
 
-Você também pode compilar este projeto e consumir o aplicativo gerado em linha de comando, assim:
+Você também pode compilar este projeto e consumir por linha de comando o aplicativo gerado, assim:
 
     java -jar extenso.jar 123,45
     
