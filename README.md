@@ -79,4 +79,21 @@ Um número qualificado pode conter casas decimais, cuja qualificação também p
 A quantidade de casas decimais pode variar:
 <pre>1,123 = um quilo, cento e vinte e três gramas</pre>
 
-Todas estas regras e também as exceções estão cobertas por testes unitários.
+#O projeto:
+
+Não há dependência a nenhuma biblioteca externa ao Java e toda a lógica está implementada em um único arquivo, **NumeroPorExtenso.java**. Você pode simplesmente adicionar este arquivo em qualquer projeto seu e produzir um número por extenso  invocando o método `get(número)`, assim:
+
+    System.out.println(NumeroPorExtenso.get(123)); // imprime "cento e vinte e três".
+
+Ou passando um decimal e seus qualificadores de parte inteira e decimal, tanto no plural quanto no singular. Assim:
+
+    // imprime "cento e vinte e três reais e quarenta e cinco centavos".
+    System.out.println(NumeroPorExtenso.get(new BigDecimal("123.45"), "real", "reais", "centavo", "centavos"));
+
+Você também pode compilar este projeto e consumir o aplicativo gerado em linha de comando, assim:
+
+    java -jar extenso.jar 123,45
+    
+O aplicativo está programado para imprimir em reais, então a chamada acima vai imprimir *cento e vinte e três reais e quarenta e cinco centavos*.
+
+Todas as regras descritas neste README estão cobertas por testes unitários escritos no arquivo **NumeroPorExtensoTest.java**.
