@@ -81,7 +81,7 @@ A quantidade de casas decimais pode variar:
 
 #O projeto
 
-Não há dependência a nenhuma biblioteca externa ao Java e toda a lógica está implementada em um único arquivo, **NumeroPorExtenso.java**. Você pode simplesmente adicionar este arquivo em qualquer projeto seu e produzir um número por extenso  invocando o método `get(número)`, assim:
+Não há dependência a nenhuma biblioteca externa ao Java e toda a lógica está implementada em um único arquivo, [NumeroPorExtenso.java](https://github.com/ocaffe/numero-por-extenso/blob/master/src/main/java/org/extenso/NumeroPorExtenso.java). Você pode simplesmente adicionar este arquivo em qualquer projeto seu e produzir um número por extenso  invocando o método `get(número)`, assim:
 
     System.out.println(NumeroPorExtenso.get(123)); // imprime "cento e vinte e três".
 
@@ -94,6 +94,6 @@ Você também pode compilar este projeto e consumir por linha de comando o aplic
 
     java -jar extenso.jar 123,45
     
-O aplicativo está programado para imprimir em reais, então a chamada acima vai imprimir *cento e vinte e três reais e quarenta e cinco centavos*.
+A [main class](https://github.com/ocaffe/numero-por-extenso/blob/master/src/main/java/org/extenso/Main.java) do aplicativo está programada para imprimir em reais, então a chamada acima vai imprimir *"cento e vinte e três reais e quarenta e cinco centavos"*.
 
-Todas as regras descritas neste README estão cobertas por testes unitários escritos no arquivo **NumeroPorExtensoTest.java**.
+Todas as regras descritas neste README estão cobertas por testes unitários escritos no arquivo [NumeroPorExtensoTest.java](https://github.com/ocaffe/numero-por-extenso/blob/master/src/test/java/org/extenso/NumeroPorExtensoTest.java).
