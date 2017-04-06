@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 public class NumeroPorExtenso {
-
+    
+    private NumeroPorExtenso() {}
+    
     public static String get(BigDecimal numero, String qualificadorSingular, String qualificadorPlural, 
         String qualificadorDecimalSingular, String qualificadorDecimalPlural) {
 
@@ -41,41 +43,54 @@ public class NumeroPorExtenso {
 
         int[] rawAlgarismos = getAlgarismos(numero);
 
-        Algarismo algarismoADireita = null;
+        List<Classe> classes = buildClassesFromAlgarismos(rawAlgarismos);
 
-        int numeroClasse = 0;
+        return buildExtensoFromClasses(classes);
+    }
+
+    private static List<Classe> buildClassesFromAlgarismos(int[] rawAlgarismos) {
+
         List<Classe> classes = new ArrayList<>();
 
-        for (int algarismoPos = rawAlgarismos.length - 1; algarismoPos >= 0;) {
+        int numeroClasse = 0;
+        Classe classe = new Classe(numeroClasse++);
+        Algarismo algarismoADireita = null;
+        int casa = 0;
+        
+        for (int algarismoPos = rawAlgarismos.length - 1; algarismoPos >= 0; algarismoPos--) {
 
-            Classe classe = new Classe(numeroClasse++);
+            Algarismo algarismo = AlgarismoFactory.create(casa, rawAlgarismos[algarismoPos], algarismoADireita, classe);
 
-            for (int casa = 0; casa < 3 && algarismoPos >= 0; casa++) {
+            algarismoADireita = algarismo;
 
-                Algarismo algarismo = AlgarismoFactory.create(casa, rawAlgarismos[algarismoPos--], algarismoADireita, classe);
+            classe.algarismos.add(algarismo);
 
-                algarismoADireita = algarismo;
+            casa++;
+            if (casa == 3 || algarismoPos == 0) {
+                classes.add(classe);
+                classe = new Classe(numeroClasse++);
+                casa = 0;
+            }
+        }
+        return classes;
+    }
 
-                classe.algarismos.add(algarismo);
+    private static String buildExtensoFromClasses(List<Classe> classes) {
+
+        StringBuilder extenso = new StringBuilder();
+
+        for (Classe classeZ : classes) {
+
+            StringBuilder extensoClasse = new StringBuilder();
+
+            for (Algarismo algarismo : classeZ.algarismos) {
+                extensoClasse.insert(0, algarismo.conector() + algarismo.representacao());
             }
 
-            classes.add(classe);
+            extenso.insert(0, classeZ.conector() + extensoClasse + classeZ.representacao());
         }
-
-        String extenso = "";
-
-        for (Classe classe : classes) {
-
-            String extensoClasse = "";
-
-            for (Algarismo algarismo : classe.algarismos) {
-                extensoClasse = algarismo.conector() + algarismo.representacao() + extensoClasse;
-            }
-
-            extenso = classe.conector() + extensoClasse + classe.representacao() + extenso;
-        }
-
-        return extenso.trim();
+        
+        return extenso.toString().trim();
     }
 
     private static int[] getAlgarismos(long numero) {
@@ -93,8 +108,8 @@ public class NumeroPorExtenso {
 }
 
 class AlgarismoFactory {
-
-    final private static Map<Integer, Class<?>> casas = new HashMap<>();
+    
+    private static final Map<Integer, Class<?>> casas = new HashMap<>();
 
     static {
         casas.put(0, Unidade.class);
@@ -117,12 +132,13 @@ class AlgarismoFactory {
 
 class Unidade extends Algarismo {
 
-    private final static String[] unidade = {"", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"};
+    private static final String[] unidadePorExtenso = {"", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"};
 
     public Unidade(int valor, Algarismo algarismoADireita, Classe classe) {
         super(valor, algarismoADireita, classe);
     }
 
+    @Override
     String conector() {
         if (valor != 0 && algarismoAEsquerda != null && algarismoAEsquerda.valor != 1) {
             return " e ";
@@ -130,28 +146,30 @@ class Unidade extends Algarismo {
         return "";
     }
 
+    @Override
     String representacao() {
         if ((classe.isSegundaClasse() && valor == 1) 
             || (algarismoAEsquerda != null && algarismoAEsquerda.valor == 1)) {
             
             return "";
         }
-        return unidade[valor];
+        return unidadePorExtenso[valor];
     }
 }
 
 class Dezena extends Algarismo {
 
-    private final static String[] 
-        dezena = {"", "dez", "vinte", "trinta", "quarenta", "cinquenta", "sessenta", "setenta", "oitenta", "noventa"};
+    private static final String[] 
+        dezenaPorExtenso = {"", "dez", "vinte", "trinta", "quarenta", "cinquenta", "sessenta", "setenta", "oitenta", "noventa"};
 
-    private final static String[] 
+    private static final String[] 
         onzeADezenove = {"", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"};
 
     public Dezena(int valor, Algarismo algarismoADireita, Classe classe) {
         super(valor, algarismoADireita, classe);
     }
 
+    @Override
     String conector() {
         if (valor != 0 && algarismoAEsquerda != null) {
             return " e ";
@@ -159,37 +177,40 @@ class Dezena extends Algarismo {
         return "";
     }
     
+    @Override
     String representacao() {
         if (valor == 1 && algarismoADireita.valor > 0) {
             return onzeADezenove[algarismoADireita.valor];
         }
 
-        return dezena[valor];
+        return dezenaPorExtenso[valor];
     }
 }
 
 class Centena extends Algarismo {
 
-    private final static String[] centena = {"", "cem", "duzentos", "trezentos", "quatrocentos", 
+    private static final String[] centenaPorExtenso = {"", "cem", "duzentos", "trezentos", "quatrocentos", 
         "quinhentos", "seissentos", "setecentos", "oitocentos", "novecentos"};
     
-    private final static String cento = "cento";
+    private static final String CENTO = "cento";
     
     public Centena(int valor, Algarismo algarismoADireita, Classe classe) {
         super(valor, algarismoADireita, classe);
     }
 
+    @Override
     String conector() {
         return "";
     }
 
+    @Override
     String representacao() {
         if (valor == 1 
             && ((algarismoADireita.valor > 0) || (algarismoADireita.algarismoADireita.valor > 0))) {
             
-            return cento;
+            return CENTO;
         }
-        return centena[valor];
+        return centenaPorExtenso[valor];
     }
 }
 
@@ -218,8 +239,8 @@ abstract class Algarismo {
 
 class Classe {
 
-    private final String[] classeSingular = {"", " mil", " milhão", " bilhão", " trilhão", " quatrilhão"};
-    private final String[] classePlural = {"", " mil", " milhões", " bilhões", " trilhões", " quatrilhões"};
+    private static final String[] classeSingular = {"", " mil", " milhão", " bilhão", " trilhão", " quatrilhão"};
+    private static final String[] classePlural = {"", " mil", " milhões", " bilhões", " trilhões", " quatrilhões"};
 
     private int numeroClasse;
 
@@ -259,12 +280,12 @@ class Classe {
     }
     
     private int totalClasse() {
-        String total = "";
+        StringBuilder total = new StringBuilder();
         
         for (Algarismo algarismo : algarismos) {
-            total = algarismo.valor + total;
+            total.insert(0, algarismo.valor);
         }
-        return Integer.parseInt(total);
+        return Integer.parseInt(total.toString());
     }
 
     private boolean souUltimaClasseAEsquerda() {
