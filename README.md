@@ -97,3 +97,5 @@ Você também pode compilar este projeto e consumir por linha de comando o aplic
 A [main class](https://github.com/ocaffe/numero-por-extenso/blob/master/src/main/java/org/extenso/Main.java) do aplicativo está programada para imprimir em reais, então a chamada acima vai imprimir *"cento e vinte e três reais e quarenta e cinco centavos"*.
 
 Todas as regras descritas neste README estão cobertas por testes unitários escritos no arquivo [NumeroPorExtensoTest.java](https://github.com/ocaffe/numero-por-extenso/blob/master/src/test/java/org/extenso/NumeroPorExtensoTest.java).
+
+Licença: use como bem entender. Pode até dizer que o código é seu se quiser.
