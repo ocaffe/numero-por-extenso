@@ -1,10 +1,10 @@
-#Número por extenso em Java
+# Número por extenso em Java
 
 Eis mais um código para escrever números por extenso.
 
 Mas este aqui tem um diferencial importante: **ele funciona!**
 
-##Organização dos números
+## Organização dos números
 
 Um número é organizado em **classes**: (1ª classe = sem nome, 2ª classe = milhar, 3ª classe = milhão, etc).
 
@@ -19,7 +19,7 @@ Casas:           U   C D U    C D U
 (sendo U = unidade, D = dezena, C = centena)
 </pre>
 
-##Regras de representação por extenso
+## Regras de representação por extenso
 
 * Cada algarismo tem uma representação por extenso conforme o seu valor:
 <pre>1 = um
@@ -38,7 +38,7 @@ Casas:           U   C D U    C D U
 * As classes são conectadas com **vírgula**:
 <pre>1.121.121 = um milhão, cento e vinte e um mil, cento e vinte um</pre>
 
-###Exceções
+### Exceções
 
 * Números de 11 a 19 são representados por uma única palavra, não usam o conector "**e**":
 <pre>11 = onze, 12 doze, 19 = dezenove</pre>
@@ -63,13 +63,13 @@ Casas:           U   C D U    C D U
 <pre>1.100 = mil e cem
 1.100.000 = um milhão e cem mil</pre>
 
-###Qualificadores
+### Qualificadores
 
 Um número pode ser qualificado, e o qualificador pode flexionar em número:
 <pre>1 dia = um dia
 2 dias = dois dias</pre>
 
-###Casas decimais
+### Casas decimais
 
 Um número qualificado pode conter casas decimais, cuja qualificação também pode flexionar em número; e o conector entre a parte inteira e a parte decimal é "e":
 <pre>0,01 = um centavo
@@ -79,7 +79,7 @@ Um número qualificado pode conter casas decimais, cuja qualificação também p
 A quantidade de casas decimais pode variar:
 <pre>1,123 = um quilo, cento e vinte e três gramas</pre>
 
-#O projeto
+# O projeto
 
 Não há dependência a nenhuma biblioteca externa ao Java e toda a lógica está implementada em um único arquivo, [NumeroPorExtenso.java](https://github.com/ocaffe/numero-por-extenso/blob/master/src/main/java/org/extenso/NumeroPorExtenso.java). Você pode simplesmente adicionar este arquivo em qualquer projeto seu e produzir um número por extenso  invocando o método `get(número)`, assim:
 
