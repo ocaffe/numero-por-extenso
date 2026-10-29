@@ -190,7 +190,7 @@ class Dezena extends Algarismo {
 class Centena extends Algarismo {
 
     private static final String[] centenaPorExtenso = {"", "cem", "duzentos", "trezentos", "quatrocentos", 
-        "quinhentos", "seissentos", "setecentos", "oitocentos", "novecentos"};
+        "quinhentos", "seiscentos", "setecentos", "oitocentos", "novecentos"};
     
     private static final String CENTO = "cento";
     
